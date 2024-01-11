@@ -1,0 +1,18 @@
+const express = require('express');
+const passport = require('passport');
+const google
+
+const app = express();
+
+const port = process.env.PORT || 5000;
+
+//
+//secretKey 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
+
+app.get('/', (req, res) => {
+  res.send('hello from simple server :-)');
+});
+
+app.listen(port, () =>
+  console.log('> Server is up and running on port : ' + port)
+);
