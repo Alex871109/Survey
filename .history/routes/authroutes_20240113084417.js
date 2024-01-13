@@ -15,18 +15,14 @@ module.exports = (app) => {
     res.send(req.user);
   });
 
-  app.get('/auth/facebook', passport.authenticate('facebook'));
-
   app.get(
-    '/auth/facebook/callback',
+    '/auth/facebook',
     passport.authenticate('facebook', {
-      failureRedirect: '/login',
-      failureMessage: true,
-    }),
-    function (req, res) {
-      res.redirect('/');
-    }
+      scope: ['profile'],
+    })
   );
+
+  app.get('/auth/facebook', passport.authenticate('facebook'));
 
   app.get('/api/current_user', (req, res) => {
     res.send(req.user);

@@ -15,18 +15,9 @@ module.exports = (app) => {
     res.send(req.user);
   });
 
-  app.get('/auth/facebook', passport.authenticate('facebook'));
-
-  app.get(
-    '/auth/facebook/callback',
-    passport.authenticate('facebook', {
-      failureRedirect: '/login',
-      failureMessage: true,
-    }),
-    function (req, res) {
-      res.redirect('/');
-    }
-  );
+  app.get('/login/facebook', passport.authenticate('facebook', {
+    scope: [ 'email', 'user_location' ]
+  }));
 
   app.get('/api/current_user', (req, res) => {
     res.send(req.user);

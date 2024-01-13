@@ -35,9 +35,8 @@ passport.use(
 passport.use(
   new FacebookStrategy(
     {
-      clientID: keys.facebookClientID,
-      clientSecret: keys.facebookClientSecret,
-      callbackURL: '/auth/facebook/callback',
+      clientID: keys.faceb,
+      clientSecret: keys.facebookAppSecret,
     },
     (accessToken, refreshToken, profile, done) => {
       User.findOne({ facebookId: profile.id }).then((existingUser) => {

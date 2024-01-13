@@ -15,18 +15,15 @@ module.exports = (app) => {
     res.send(req.user);
   });
 
+
   app.get('/auth/facebook', passport.authenticate('facebook'));
 
-  app.get(
-    '/auth/facebook/callback',
-    passport.authenticate('facebook', {
-      failureRedirect: '/login',
-      failureMessage: true,
-    }),
-    function (req, res) {
-      res.redirect('/');
-    }
-  );
+  app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login', failureMessage: true }),
+  function(req, res) {
+    res.redirect('/');
+    res.send
+  });
 
   app.get('/api/current_user', (req, res) => {
     res.send(req.user);

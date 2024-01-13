@@ -15,7 +15,12 @@ module.exports = (app) => {
     res.send(req.user);
   });
 
-  app.get('/auth/facebook', passport.authenticate('facebook'));
+  app.get(
+    '/auth/facebook',
+    passport.authenticate('facebook', {
+      scope: ['profile'],
+    })
+  );
 
   app.get(
     '/auth/facebook/callback',
