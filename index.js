@@ -1,18 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const cookieSession = require('cookie-session');
-const keys = require('./config/keys');
+//const keys = require('./config/keys');
 const passport = require('passport');
 require('./models/User');
 require('./services/passport');
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(process.env.MONGO_URI);
 
 const app = express();
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 + 60 * 1000,
-    keys: [keys.cookieKey],
+    keys: [process.env.COOKIE_KEY],
   })
 );
 
@@ -22,7 +23,7 @@ app.use(passport.session());
 require('./routes/authRoutes')(app);
 
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 app.listen(port, () =>
   console.log('> Server is up and running on port : ' + port)
 );
