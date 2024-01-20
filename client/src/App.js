@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { Header } from './components/Header';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+const Landing = () => <h2>Landing <a href='/api/current_user'> current user</a></h2>;
+const Dashboard = () => <h2>Dashboard</h2>;
+const SurveyNew = () => <h2>SurveyNew</h2>;
+const NotFound = () => <h2>NotFound</h2>;
+const ServerError = () => <h2>Problema de carga desde el servidor</h2>;
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/surveys" element={<Dashboard />} />
+        <Route path="/surveys/new" element={<SurveyNew />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/servererror" element={<ServerError />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
