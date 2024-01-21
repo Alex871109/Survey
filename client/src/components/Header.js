@@ -22,17 +22,18 @@ const pages = ['Add credits', 'Credits'];
 const loggedSettings = ['Account', 'Dashboard', 'Logout'];
 const notLoggedSettings = ['Sign with Google'];
 
-export const Header = () => {
-  const [logged, setlogged] = React.useState(false);
+export const Header = ({ logged, error, data, isLoading, setLogged }) => {
+  //   const [logged, setlogged] = React.useState(false);
   const navigate = useNavigate();
-  const { data, error, isLoading } = useFetchUsersQuery();
-  React.useEffect(() => {
-    if (data) {
-      setlogged(true);
-    }
-    if (error) navigate('/servererror');
-  }, [data, error]);
+  //   const { data, error, isLoading } = useFetchUsersQuery();
+  //   React.useEffect(() => {
+  //     if (data) {
+  //       setlogged(true);
+  //     }
+  //     if (error) navigate('/servererror');
+  //   }, [data, error]);
 
+  if (error) navigate('/servererror');
   let settings = logged ? loggedSettings : notLoggedSettings;
   const avatarProps = logged
     ? { alt: 'User photo', src: data.photo }
@@ -56,7 +57,7 @@ export const Header = () => {
         try {
           await axios.get('/api/logout');
           navigate('/');
-          setlogged(false);
+          setLogged(false);
         } catch {
           navigate('/servererror');
         }
@@ -80,10 +81,12 @@ export const Header = () => {
       </Grid>
     );
   } else {
-    console.log(data);
     content = (
       <>
-        <Link  to={logged ? '/surveys' : '/'} style={{ textDecoration: 'none', color: 'inherit' }} >
+        <Link
+          to={logged ? '/surveys' : '/'}
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
           <Box sx={{ display: { xs: 'flex' } }}>
             <AdbIcon sx={{ display: { xs: 'flex' }, mr: 1 }} />
             <Typography
