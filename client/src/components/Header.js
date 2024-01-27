@@ -17,8 +17,6 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { useNavigate, Link } from 'react-router-dom';
 import { Stack, FormLabel, Grid, Skeleton } from '@mui/material';
 
-const addCreditsButton = <button>Add credits</button>;
-const pages = ['Add credits', 'Credits'];
 const loggedSettings = ['Account', 'Dashboard', 'Logout'];
 const notLoggedSettings = ['Sign with Google'];
 
@@ -42,7 +40,7 @@ const userOptions = (currentCredits) => {
 export const Header = ({ logged, error, data, isLoading, setLogged }) => {
   const navigate = useNavigate();
 
-  if (error) navigate('/servererror');
+  // if (error) navigate('/servererror');
   let settings = logged ? loggedSettings : notLoggedSettings;
   const avatarProps = logged
     ? { alt: 'User photo', src: data.photo }
