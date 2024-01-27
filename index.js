@@ -9,12 +9,14 @@ require('./services/passport');
 mongoose.connect(process.env.MONGO_URI);
 
 const app = express();
+
 const { resolve } = require('path');
+
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(process.env.STATIC_DIR));
+  aapp.use(express.static('client/build'));
 
   app.get('*', (req, res) => {
-    const path = resolve(process.env.STATIC_DIR + '/index.html');
+    const path = resolve('client', 'build', 'index.html');
     res.sendFile(path);
   });
 }
