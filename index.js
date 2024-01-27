@@ -13,7 +13,7 @@ const app = express();
 const { resolve } = require('path');
 
 if (process.env.NODE_ENV === 'production') {
-  aapp.use(express.static('client/build'));
+  app.use(express.static('client/build'));
 
   app.get('*', (req, res) => {
     const path = resolve('client', 'build', 'index.html');
