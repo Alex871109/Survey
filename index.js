@@ -9,17 +9,30 @@ require('./services/passport');
 mongoose.connect(process.env.MONGO_URI);
 
 const app = express();
+const { resolve } = require('path');
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(process.env.STATIC_DIR));
+
+  app.get('*', (req, res) => {
+    const path = resolve(process.env.STATIC_DIR + '/index.html');
+    res.sendFile(path);
+  });
+}
+
 app.use(
   cookieSession({
-    maxAge: 30 * 24 * 60 + 60 * 1000,
+    maxAge: 30 * 24 * 60 * 60 * 1000,
     keys: [process.env.COOKIE_KEY],
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 require('./routes/authRoutes')(app);
+require('./routes/billRoutes')(app);
 
 const port = process.env.PORT;
 app.listen(port, () =>

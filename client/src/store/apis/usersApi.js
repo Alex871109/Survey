@@ -18,20 +18,19 @@ const usersApi = createApi({
         },
       }),
 
-
-
-      //     removeUser:  builder.mutation({
-      //         invalidatesTags: [{type:'users'}],
-      //         query: (user) => {
-      //             return {
-      //                 url: `/users/${user.id}`,
-      //                 method: 'DELETE',
-      //             };
-      //         }
-      //     }),
+      addUserCredits: builder.mutation({
+        invalidatesTags: [{ type: 'users' }],
+        query: (credits) => {
+          return {
+            url: '/api/add_credits',
+            body: { credits: credits },
+            method: 'POST',
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useFetchUsersQuery } = usersApi;
+export const { useFetchUsersQuery, useAddUserCreditsMutation } = usersApi;
 export { usersApi };

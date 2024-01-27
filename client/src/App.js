@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
+import { ServerError } from './components/ServerError';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useFetchUsersQuery } from './store';
-import { useNavigate } from 'react-router-dom';
+import Payment from './components/Payments';
 
 const Landing = () => (
   <h2>
@@ -12,12 +13,12 @@ const Landing = () => (
 const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
 const NotFound = () => <h2>NotFound</h2>;
-const ServerError = () => <h2>Problema de carga desde el servidor</h2>;
+const Completion = () => <h2>Compra exitosa</h2>;
 
 function App() {
   const [logged, setLogged] = useState(false);
   const { data, error, isLoading } = useFetchUsersQuery();
-  // const navigate = useNavigate();
+
   useEffect(() => {
     if (data) {
       setLogged(true);
@@ -38,6 +39,8 @@ function App() {
         <Route path="/surveys/new" element={<SurveyNew />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/servererror" element={<ServerError />} />
+        <Route path="/completion" element={<Completion />} />
+        <Route path="/payments" element={<Payment />} />
       </Routes>
     </BrowserRouter>
   );

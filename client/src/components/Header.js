@@ -6,7 +6,6 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-// import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -14,24 +13,34 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { useFetchUsersQuery } from '../store';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { useNavigate, Link } from 'react-router-dom';
-import { Grid, Skeleton } from '@mui/material';
+import { Stack, FormLabel, Grid, Skeleton } from '@mui/material';
 
+const addCreditsButton = <button>Add credits</button>;
 const pages = ['Add credits', 'Credits'];
 const loggedSettings = ['Account', 'Dashboard', 'Logout'];
 const notLoggedSettings = ['Sign with Google'];
 
+const userOptions = (currentCredits) => {
+  return (
+    <Stack direction="row" spacing={2}>
+      <Link
+        to={'/payments'}
+        style={{ textDecoration: 'none', color: 'inherit' }}
+      >
+        <Button variant="contained" startIcon={<CreditCardIcon />}>
+          Add 5 credits
+        </Button>
+      </Link>
+      <FormLabel>Credits</FormLabel>
+      <FormLabel>{currentCredits}</FormLabel>
+    </Stack>
+  );
+};
+
 export const Header = ({ logged, error, data, isLoading, setLogged }) => {
-  //   const [logged, setlogged] = React.useState(false);
   const navigate = useNavigate();
-  //   const { data, error, isLoading } = useFetchUsersQuery();
-  //   React.useEffect(() => {
-  //     if (data) {
-  //       setlogged(true);
-  //     }
-  //     if (error) navigate('/servererror');
-  //   }, [data, error]);
 
   if (error) navigate('/servererror');
   let settings = logged ? loggedSettings : notLoggedSettings;
@@ -46,8 +55,9 @@ export const Header = ({ logged, error, data, isLoading, setLogged }) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleUserOption = (page) => {
+    // setAnchorElNav(null);
+    if (page === 'Add credits') navigate('/payments');
   };
 
   const handleUserSelect = (setting) => {
@@ -107,16 +117,7 @@ export const Header = ({ logged, error, data, isLoading, setLogged }) => {
           </Box>
         </Link>
         <Box sx={{ flexGrow: 1, display: { xs: 'flex' } }}>
-          {logged &&
-            pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+          {logged && userOptions(data.credits)}
         </Box>
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">

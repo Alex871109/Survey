@@ -3,8 +3,8 @@ require('dotenv').config();
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const mongoose = require('mongoose');
-
 const User = mongoose.model('users');
+
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser(async (id, done) => {
   const user = await User.findById(id);
@@ -19,7 +19,6 @@ passport.use(
       proxy: true,
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile._json.picture);
       const existingUser = await User.findOne({
         googleId: profile.id,
         photo: profile._json.picture,
