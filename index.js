@@ -10,14 +10,17 @@ mongoose.connect(process.env.MONGO_URI);
 
 const app = express();
 
-const { resolve } = require('path');
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build/static'));
+  // Express will serve up production assets
+  // like our main.js file, or main.css file!
+  app.use(express.static('client/build'));
 
+  // Express will serve up the index.html file
+  // if it doesn't recognize the route
+  const path = require('path');
   app.get('*', (req, res) => {
-    const path = resolve('client', 'build', 'index.html');
-    res.sendFile(path);
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
