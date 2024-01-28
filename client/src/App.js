@@ -4,6 +4,7 @@ import { ServerError } from './components/ServerError';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useFetchUsersQuery } from './store';
 import Payment from './components/Payments';
+import { PrivateRoute } from './components/PrivateRoute';
 
 const Landing = () => (
   <h2>
@@ -14,7 +15,6 @@ const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
 const NotFound = () => <h2>NotFound</h2>;
 const Completion = () => <h2>Compra exitosa</h2>;
-
 function App() {
   const [logged, setLogged] = useState(false);
   const { data, error, isLoading } = useFetchUsersQuery();
@@ -35,8 +35,23 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/surveys" element={<Dashboard />} />
-        <Route path="/surveys/new" element={<SurveyNew />} />
+        {/* <Route path="/surveys" element={<Dashboard />} /> */}
+        <Route
+          path="/surveys"
+          element={
+            <PrivateRoute logged={logged} redirect={'/'}>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/surveys/new"
+          element={
+            <PrivateRoute logged={logged} redirect={'/'}>
+              <SurveyNew />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
         <Route path="/servererror" element={<ServerError />} />
         <Route path="/completion" element={<Completion />} />

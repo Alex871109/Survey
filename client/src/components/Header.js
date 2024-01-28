@@ -40,7 +40,6 @@ const userOptions = (currentCredits) => {
 export const Header = ({ logged, error, data, isLoading, setLogged }) => {
   const navigate = useNavigate();
 
-  // if (error) navigate('/servererror');
   let settings = logged ? loggedSettings : notLoggedSettings;
   const avatarProps = logged
     ? { alt: 'User photo', src: data.photo }
