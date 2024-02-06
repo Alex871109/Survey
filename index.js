@@ -4,7 +4,9 @@ require('dotenv').config();
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 require('./models/User');
+require('./models/Survey');
 require('./services/passport');
+
 
 mongoose.connect(process.env.MONGO_URI);
 
@@ -23,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 
 require('./routes/authRoutes')(app);
 require('./routes/billRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
