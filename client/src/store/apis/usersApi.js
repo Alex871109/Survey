@@ -2,9 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const usersApi = createApi({
   reducerPath: 'users',
-  baseQuery: fetchBaseQuery({
-    // baseUrl: 'http://localhost:3000',
-  }),
+  baseQuery: fetchBaseQuery({}),
   endpoints(builder) {
     return {
       fetchUsers: builder.query({
@@ -19,7 +17,7 @@ const usersApi = createApi({
       }),
 
       addUserCredits: builder.mutation({
-        invalidatesTags: [{ type: 'users' }],
+        invalidatesTags: [{ type: 'users' },{ type: 'surveys' }],
         query: (credits) => {
           return {
             url: '/api/add_credits',

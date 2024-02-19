@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { Grid, Skeleton } from '@mui/material';
 import { Header } from './components/Header';
 import { ServerError } from './components/ServerError';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useFetchUsersQuery } from './store';
 import Payment from './components/Payments';
 import { PrivateRoute } from './components/PrivateRoute';
+import { SurveyForm } from './components/SurveyForm';
 
 const Landing = () => (
   <h2>
@@ -12,18 +14,34 @@ const Landing = () => (
   </h2>
 );
 const Dashboard = () => <h2>Dashboard</h2>;
-const SurveyNew = () => <h2>SurveyNew</h2>;
 const NotFound = () => <h2>NotFound</h2>;
 const Completion = () => <h2>Compra exitosa</h2>;
+
 function App() {
   const [logged, setLogged] = useState(false);
-  const { data, error, isLoading } = useFetchUsersQuery();
+  const { data, error, isLoading, refetch } = useFetchUsersQuery();
 
   useEffect(() => {
     if (data) {
       setLogged(true);
     }
   }, [data, error]);
+
+  // const logged = isLoading ? false : true;
+
+  if (isLoading) {
+    return (
+      <Grid container spacing={2}>
+        <Grid item xs={11}>
+          <Skeleton variant="rectangular" height={45} />
+        </Grid>
+        <Grid item xs={1}>
+          <Skeleton variant="circular" width={45} height={40} />
+        </Grid>
+      </Grid>
+    )
+  }
+
   return (
     <BrowserRouter>
       <Header
@@ -35,11 +53,10 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Landing />} />
-        {/* <Route path="/surveys" element={<Dashboard />} /> */}
         <Route
           path="/surveys"
           element={
-            <PrivateRoute logged={logged} redirect={'/'}>
+            <PrivateRoute logged={logged || !!data} redirect={'/'}>
               <Dashboard />
             </PrivateRoute>
           }
@@ -47,11 +64,12 @@ function App() {
         <Route
           path="/surveys/new"
           element={
-            <PrivateRoute logged={logged} redirect={'/'}>
-              <SurveyNew />
+            <PrivateRoute logged={logged || !!data} redirect={'/'}>
+              <SurveyForm refetchUsers={refetch} />
             </PrivateRoute>
           }
         />
+
         <Route path="*" element={<NotFound />} />
         <Route path="/servererror" element={<ServerError />} />
         <Route path="/completion" element={<Completion />} />
