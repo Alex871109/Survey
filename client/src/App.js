@@ -7,13 +7,13 @@ import { useFetchUsersQuery } from './store';
 import Payment from './components/Payments';
 import { PrivateRoute } from './components/PrivateRoute';
 import { SurveyForm } from './components/SurveyForm';
+import { Dashboard } from './components/Dashboard';
 
 const Landing = () => (
   <h2>
     Landing <a href="/api/current_user"> current user</a>
   </h2>
 );
-const Dashboard = () => <h2>Dashboard</h2>;
 const NotFound = () => <h2>NotFound</h2>;
 const Completion = () => <h2>Compra exitosa</h2>;
 
@@ -27,7 +27,6 @@ function App() {
     }
   }, [data, error]);
 
-  // const logged = isLoading ? false : true;
 
   if (isLoading) {
     return (
@@ -39,7 +38,7 @@ function App() {
           <Skeleton variant="circular" width={45} height={40} />
         </Grid>
       </Grid>
-    )
+    );
   }
 
   return (

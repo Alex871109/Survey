@@ -88,7 +88,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get('/api/surveys', async (req, res) => {
+  app.get('/api/surveys',requireLogin, async (req, res) => {
     try {
       res.send(
         await Survey.find({_user : req.user.id}).select({ recipients: false })
