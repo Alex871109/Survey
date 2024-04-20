@@ -21,7 +21,6 @@ export default function MyCard({
   const handleDelete = async () => {
     try {
       await deleteSurvey(surveyId);
-      // refetchUsers();
       navigate('/surveys');
     } catch (error) {
       navigate('/servererror', { state: error });

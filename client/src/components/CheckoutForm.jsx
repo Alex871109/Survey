@@ -63,7 +63,7 @@ export default function CheckoutForm() {
         id="submit"
       >
         <span id="button-text">
-          {isProcessing ? 'Procesando ... ' : 'Pagar ahora'}
+          {isProcessing ? 'Processing ... ' : 'Pay now'}
         </span>
       </Button>
     </form>

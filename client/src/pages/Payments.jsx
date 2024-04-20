@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
-import CheckoutForm from './CheckoutForm';
+import CheckoutForm from '../components/CheckoutForm';
 import { loadStripe } from '@stripe/stripe-js';
 import { Container, Typography } from '@mui/material';
 

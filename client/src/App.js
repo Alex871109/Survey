@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Grid, Skeleton } from '@mui/material';
 import { Header } from './components/Header';
-import { ServerError } from './components/ServerError';
-import { BrowserRouter, Routes, Route , Navigate} from 'react-router-dom';
+import { ServerError } from './pages/ServerError';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useFetchUsersQuery } from './store';
-import Payment from './components/Payments';
+import Payment from './pages/Payments';
 import { PrivateRoute } from './components/PrivateRoute';
-import { SurveyForm } from './components/SurveyForm';
-import { Dashboard } from './components/Dashboard';
-import NotFound from './components/NotFound';
-import Completion from './components/Completion';
-import LandingPage from './components/LandingPage';
+import { SurveyForm } from './pages/SurveyForm';
+import { Dashboard } from './pages/Dashboard';
+import NotFound from './pages/NotFound';
+import Completion from './pages/Completion';
+import LandingPage from './pages/LandingPage';
 
 function App() {
   const [logged, setLogged] = useState(false);
@@ -47,13 +47,13 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={!(logged) ? <LandingPage /> :  <Navigate to={'/surveys'} />}
+          element={!logged ? <LandingPage /> : <Navigate to={'/surveys'} />}
         />
         <Route
           path="/surveys"
           element={
             <PrivateRoute logged={logged || !!data} redirect={'/'}>
-              <Dashboard userData={data}/>
+              <Dashboard userData={data} />
             </PrivateRoute>
           }
         />

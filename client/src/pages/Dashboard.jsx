@@ -1,9 +1,9 @@
 import { Skeleton, Typography, Container, Box } from '@mui/material';
-import MyCard from './MyCard';
+import MyCard from '../components/MyCard';
 import { useState } from 'react';
 import { useFetchSurveysQuery } from '../store';
-import Paginator from './Paginator';
-import { UserOption } from './UserOption';
+import Paginator from '../components/Paginator';
+import { UserOption } from '../components/UserOption';
 
 export const Dashboard = ({ userData }) => {
   const { data, error, isLoading } = useFetchSurveysQuery();
