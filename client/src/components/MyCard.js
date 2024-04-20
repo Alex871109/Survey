@@ -5,10 +5,31 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useDeleteSurveyMutation } from '../store';
+import { useNavigate } from 'react-router-dom';
 
-export default function MyCard({ subject, title, yes, no, lastResponded }) {
+export default function MyCard({
+  subject,
+  title,
+  yes,
+  no,
+  lastResponded,
+  surveyId,
+}) {
+  const navigate = useNavigate();
+  const [deleteSurvey, results] = useDeleteSurveyMutation();
+  const handleDelete = async () => {
+    try {
+      await deleteSurvey(surveyId);
+      // refetchUsers();
+      navigate('/surveys');
+    } catch (error) {
+      navigate('/servererror', { state: error });
+    }
+  };
+
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 275, mb: 1.5 }}>
       <CardContent>
         <Typography variant="body1" gutterBottom>
           Title:
@@ -30,14 +51,13 @@ export default function MyCard({ subject, title, yes, no, lastResponded }) {
           No :{no}
         </Typography>
         <Typography variant="body1" mt={1}>
-          Date sent:{'"a benevolent smile"'}
-        </Typography>
-        <Typography variant="body1" mt={1}>
-          Last responded:{lastResponded.split('T')[0]}
+          Last responded:{(lastResponded) ?lastResponded.split('T')[0]: 'Not yet responded.'}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Delete</Button>
+        <Button size="small" onClick={handleDelete}>
+          Delete
+        </Button>
       </CardActions>
     </Card>
   );

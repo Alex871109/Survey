@@ -1,10 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { usersApi } from './apis/usersApi';
-import {
-  surveysApi,
-  useAddSurveyMutation,
-  useFetchSurveysQuery,
-} from './apis/surveysApi';
+import { surveysApi } from './apis/surveysApi';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 export const store = configureStore({
@@ -22,4 +18,8 @@ export const store = configureStore({
 setupListeners(store.dispatch);
 
 export { useFetchUsersQuery, useAddUserCreditsMutation } from './apis/usersApi';
-export { useFetchSurveysQuery, useAddSurveyMutation } from './apis/surveysApi';
+export {
+  useFetchSurveysQuery,
+  useAddSurveyMutation,
+  useDeleteSurveyMutation,
+} from './apis/surveysApi';

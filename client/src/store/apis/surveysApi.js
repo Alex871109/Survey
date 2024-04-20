@@ -26,9 +26,19 @@ const surveysApi = createApi({
           };
         },
       }),
+
+      deleteSurvey: builder.mutation({
+        invalidatesTags: [{ type: 'surveys' }],
+        query: (id) => {
+          return {
+            url: `/api/surveys/delete/${id}`,
+            method: 'DELETE',
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useFetchSurveysQuery, useAddSurveyMutation } = surveysApi;
+export const { useFetchSurveysQuery, useAddSurveyMutation, useDeleteSurveyMutation } = surveysApi;
 export { surveysApi };

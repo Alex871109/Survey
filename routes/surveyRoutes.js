@@ -34,13 +34,24 @@ module.exports = (app) => {
         await survey.save();
         req.user.credits -= 1;
         const user = await req.user.save();
-
         res.send(user);
       } catch (err) {
         res.status(422).send(err);
       }
     }
   );
+
+  app.delete('/api/surveys/delete/:id', requireLogin, async (req, res) => {
+    try {
+      const surveyEliminada = await Survey.findByIdAndDelete(req.params.id);
+      if (!surveyEliminada) {
+        return res.status(404).json({ mensaje: 'Survey not found' });
+      }
+      res.json({ mensaje: 'Survey was deleted ', survey: surveyEliminada });
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  });
 
   app.post('/api/surveys/webhooks', async (req, res) => {
     const p = new Path('/api/surveys/:surveyid/:choice');
@@ -88,10 +99,10 @@ module.exports = (app) => {
     }
   });
 
-  app.get('/api/surveys',requireLogin, async (req, res) => {
+  app.get('/api/surveys', requireLogin, async (req, res) => {
     try {
       res.send(
-        await Survey.find({_user : req.user.id}).select({ recipients: false })
+        await Survey.find({ _user: req.user.id }).select({ recipients: false })
       );
     } catch (error) {
       res.status(500).send(`Error: ${error}`);

@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import { Box, Container, Typography } from '@mui/material';
 import { useAddSurveyMutation } from '../store';
 import { useNavigate } from 'react-router-dom';
-import { useFetchUsersQuery } from '../store';
 
 const validationSchema = yup.object({
   body: yup
@@ -14,8 +13,10 @@ const validationSchema = yup.object({
     .min(8, 'Body should be of minimum 8 characters length')
     .required('Body is required'),
   recipients: yup
-    .string('Enter comma separated email addreses')
-    .required('Recipients are required'),
+    .array()
+    .transform((value) => value.trim().split(',')) // Handle spaces around commas
+    .of(yup.string().email('Enter a valid email').required())
+    .required('Email is required'),
   campain: yup
     .string('Enter the campain`s title')
     .min(8, 'Title should be of minimum 8 characters length')
@@ -73,6 +74,7 @@ export const SurveyForm = ({ refetchUsers }) => {
               value={formik.values.campain}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              onFocus={() => formik.setFieldValue('campain', '')}
               error={formik.touched.campain && Boolean(formik.errors.campain)}
               helperText={formik.touched.campain && formik.errors.campain}
             />
@@ -86,6 +88,7 @@ export const SurveyForm = ({ refetchUsers }) => {
               value={formik.values.subject}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              onFocus={() => formik.setFieldValue('subject', '')}
               error={formik.touched.subject && Boolean(formik.errors.subject)}
               helperText={formik.touched.subject && formik.errors.subject}
             />
@@ -99,6 +102,7 @@ export const SurveyForm = ({ refetchUsers }) => {
               value={formik.values.body}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              onFocus={() => formik.setFieldValue('body', '')}
               error={formik.touched.body && Boolean(formik.errors.body)}
               helperText={formik.touched.body && formik.errors.body}
             />
@@ -112,6 +116,7 @@ export const SurveyForm = ({ refetchUsers }) => {
               value={formik.values.recipients}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              onFocus={() => formik.setFieldValue('recipients', '')}
               error={
                 formik.touched.recipients && Boolean(formik.errors.recipients)
               }
