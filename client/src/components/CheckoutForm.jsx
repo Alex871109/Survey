@@ -1,7 +1,10 @@
-import { PaymentElement } from '@stripe/react-stripe-js';
-import { useState } from 'react';
+import {
+  PaymentElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
+import { useState, useEffect } from 'react';
 import { useAddUserCreditsMutation } from '../store/apis/usersApi';
-import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
@@ -11,7 +14,17 @@ export default function CheckoutForm() {
   const elements = useElements();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isStripeLoading, setIsStripeLoading] = useState(true);
   let message;
+
+  useEffect(() => {
+    if (elements) {
+      const element = elements.getElement('payment');
+      element.on('ready', () => {
+        setIsStripeLoading(false);
+      });
+    }
+  }, [elements]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +71,7 @@ export default function CheckoutForm() {
       <Button
         variant="contained"
         type="submit"
-        disabled={isProcessing || !stripe || !elements}
+        disabled={isStripeLoading || isProcessing || !stripe || !elements}
         sx={{ marginTop: 2 }}
         id="submit"
       >

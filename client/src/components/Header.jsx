@@ -37,16 +37,16 @@ export const Header = ({ logged, error, data, isLoading, setLogged }) => {
     ? { alt: 'User photo', src: data.photo }
     : { children: <AccountCircle /> };
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  // const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleUserOption = (page) => {
-    if (page === 'Add credits') navigate('/payments');
-  };
+  // const handleUserOption = (page) => {
+  //   if (page === 'Add credits') navigate('/payments');
+  // };
 
   const handleUserSelect = (setting) => {
     if (setting === 'Sign with Google') window.location.href = '/auth/google';
