@@ -4,12 +4,11 @@ import { useState } from 'react';
 import { useFetchSurveysQuery } from '../store';
 import Paginator from '../components/Paginator';
 import { UserOption } from '../components/UserOption';
+import Styles from '../assets/Styles';
 
 export const Dashboard = ({ userData }) => {
   const { data, error, isLoading } = useFetchSurveysQuery();
   const [page, setPage] = useState(1);
-
-  console.log(userData.credits);
 
   if (isLoading)
     return (
@@ -19,7 +18,6 @@ export const Dashboard = ({ userData }) => {
     );
 
   if (data.length > 0) {
-    console.log(data);
     const surveys = [...data].reverse().map((survey) => {
       return (
         <MyCard
@@ -43,29 +41,11 @@ export const Dashboard = ({ userData }) => {
   } else {
     return (
       <Container>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh',
-            maxWidth: '800px',
-            margin: '0 auto',
-          }}
-        >
+        <Box sx={Styles.dashboardContainerBox}>
           <Typography
             variant="h4"
             align="center"
-            sx={{
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: '#1e88e5',
-              textDecoration: 'none',
-              textAlign: 'center',
-              marginBottom: '8px',
-            }}
+            sx={Styles.dashboardContainerTypography}
           >
             Still don't have any surveys.
             <br />

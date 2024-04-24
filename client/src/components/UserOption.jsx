@@ -1,4 +1,5 @@
 import React from 'react';
+import Styles from '../assets/Styles';
 import { Link } from 'react-router-dom';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
@@ -26,14 +27,7 @@ export const UserOption = ({ currentCredits, isHeader }) => {
         </Link>
       )}
       {isHeader && (
-        <FormLabel
-          sx={{
-            alignItems: 'center',
-            color: 'inherit',
-            fontFamily: 'monospace',
-            fontWeight: 700,
-          }}
-        >
+        <FormLabel sx={Styles.creditsLabel}>
           Credits: {currentCredits || 0}
         </FormLabel>
       )}

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Styles from '../assets/Styles';
 import axios from 'axios';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,7 +18,6 @@ import { UserOption } from './UserOption';
 
 const loggedSettings = ['Account', 'Dashboard', 'Logout'];
 const notLoggedSettings = ['Sign with Google'];
-
 
 export const Header = ({ logged, error, data, isLoading, setLogged }) => {
   const logout = async () => {
@@ -69,34 +69,16 @@ export const Header = ({ logged, error, data, isLoading, setLogged }) => {
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
               <Box sx={{ display: { xs: 'flex' } }}>
-                <EmailIcon
-                  sx={{
-                    fontSize: 50,
-                    display: { xs: 'flex' },
-                    alignItems: 'center',
-                    mr: 1,
-                  }}
-                />
-                <Typography
-                  variant="h6"
-                  noWrap
-                  sx={{
-                    mr: 2,
-                    display: { xs: 'flex' },
-                    fontFamily: 'monospace',
-                    fontWeight: 700,
-                    letterSpacing: '.3rem',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                    alignItems: 'center',
-                  }}
-                >
+                <EmailIcon sx={Styles.emailIcon} />
+                <Typography variant="h6" noWrap sx={Styles.emailyBrand}>
                   Emaily
                 </Typography>
               </Box>
             </Link>
             <Box sx={{ flexGrow: 1, display: { xs: 'flex' } }}>
-              {logged && <UserOption currentCredits={data.credits} isHeader={true} />  }
+              {logged && (
+                <UserOption currentCredits={data.credits} isHeader={true} />
+              )}
             </Box>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
