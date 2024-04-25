@@ -45,7 +45,7 @@ export const Dashboard = ({ userData }) => {
           <Typography
             variant="h4"
             align="center"
-            sx={Styles.dashboardContainerTypography}
+            sx={{...Styles.dashboardContainerTypography,color:'#514CD1'}}
           >
             Still don't have any surveys.
             <br />

@@ -1,14 +1,17 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Paper, Button } from '@mui/material';
 import Styles from '../assets/Styles';
 
 export const Pricing = () => {
   return (
-    <Box
+    <Paper
+      elevation={3}
       sx={{
-        padding: '10px 0',
+        padding: '10px 10px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        maxWidth: '700px',
+        bgcolor:'#43B0D1'
       }}
     >
       <Box sx={{ mt: 1 }}>
@@ -21,12 +24,20 @@ export const Pricing = () => {
           sx={{
             ...Styles.asideSubtitleTypography,
             fontWeight: 600,
-            color: '#1e88e5',
           }}
         >
           5€ for 5 credits
         </Typography>
+        <Box sx={{ textAlign: 'center', marginTop: '0px' }}>
+          <Button
+            variant="contained"
+            sx={{ marginRight: '1px' }}
+            onClick={() => (window.location.href = '/auth/google')}
+          >
+            Sign up for free
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    </Paper>
   );
 };

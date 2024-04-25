@@ -1,10 +1,25 @@
-import { Box, Typography, Grid } from '@mui/material';
+import {
+  Typography,
+  Grid,
+  Paper,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
 import feedbackImage from '../assets/feedback.jpg';
 import Styles from '../assets/Styles';
 
+const features = [
+  'Create custom surveys',
+  'Send surveys via email or link',
+  'Track survey responses',
+  ' Get detailed analytics',
+];
 export const Features = () => {
   return (
-    <Box sx={{ padding: '20px 0' }}>
+    <Paper elevation={3} sx={{ padding: '10px 20px', bgcolor: '#43B0D1' }}>
       <Grid container spacing={1} alignItems="center">
         <Grid container item xs={12} justifyContent="center">
           <Typography variant="h2" sx={Styles.asideTitleTypography}>
@@ -17,28 +32,20 @@ export const Features = () => {
           md={6}
           style={{ display: 'flex', flexDirection: 'column' }}
         >
-          <ul style={{ margin: '0px', padding: '0px' }}>
-            <li>
-              <Typography variant="body1" sx={Styles.asideSubtitleTypography}>
-                Create custom surveys
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={Styles.asideSubtitleTypography}>
-                Send surveys via email or link
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={Styles.asideSubtitleTypography}>
-                Track survey responses
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={Styles.asideSubtitleTypography}>
-                Get detailed analytics
-              </Typography>
-            </li>
-          </ul>
+          <List>
+            {features.map((feature) => (
+              <ListItem disablePadding key={feature}>
+                <ListItemIcon sx={{ minWidth: '30px' }}>
+                  <CheckIcon fontSize={'medium'} sx={{ color: 'white' }} />
+                </ListItemIcon>
+                <ListItemText
+                  primaryTypographyProps={{ variant: 'h7' }}
+                  primary={feature}
+                  sx={Styles.asideSubtitleTypography}
+                />
+              </ListItem>
+            ))}
+          </List>
         </Grid>
 
         <Grid item xs={12} md={6}>
@@ -49,6 +56,6 @@ export const Features = () => {
           />
         </Grid>
       </Grid>
-    </Box>
+    </Paper>
   );
 };

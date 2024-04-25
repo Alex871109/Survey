@@ -1,6 +1,6 @@
 const basicLetter = {
   alignItems: 'center',
-  color: '#1e88e5',
+  color: 'white',
   fontFamily: 'monospace',
 };
 
