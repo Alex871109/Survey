@@ -39,7 +39,7 @@ export const Benefits = () => {
                   <CheckIcon fontSize={'medium'} sx={{ color: 'white' }} />
                 </ListItemIcon>
                 <ListItemText
-                  primaryTypographyProps={{ variant: 'h7' }}
+                  primaryTypographyProps={{ variant: 'h6' }}
                   primary={benefit}
                   sx={Styles.asideSubtitleTypography}
                 />

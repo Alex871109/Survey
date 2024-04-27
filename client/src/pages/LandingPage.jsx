@@ -6,18 +6,18 @@ import { Hero } from '../components/Hero';
 
 const LandingPage = () => {
   return (
-    <Container sx={{marginTop:'10px'}}>
+    <Container sx={{ marginTop: '10px' }}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Hero />
         </Grid>
-        <Grid item xs={12} md={6} >
+        <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
           <Features />
         </Grid>
-        <Grid item xs={12} md={6} >
+        <Grid item xs={12} md={6} sx={{ display: 'flex'}}>
           <Benefits />
         </Grid>
-        <Grid item xs={12} sx={{justifyContent: 'center',display:'flex',}}>
+        <Grid item xs={12} sx={{ justifyContent: 'center', display: 'flex' }}>
           <Pricing />
         </Grid>
       </Grid>
