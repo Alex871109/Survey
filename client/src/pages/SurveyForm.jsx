@@ -133,37 +133,6 @@ export const SurveyForm = ({ refetchUsers }) => {
           </Box>
         )}
         {step === 1 && (
-          // <Box>
-          //   <Typography variant="h4" gutterBottom>
-          //     Please confirm your entries
-          //   </Typography>
-          //   <Box sx={{ mb: '8px' }}>
-          //     <Typography variant="h6" gutterBottom>
-          //       Campain Title
-          //     </Typography>
-          //     <Typography variant="body1">{formik.values.campain}</Typography>
-          //   </Box>
-          //   <Box sx={{ mb: '8px' }}>
-          //     <Typography variant="h6" gutterBottom>
-          //       Subject
-          //     </Typography>
-          //     <Typography variant="body1">{formik.values.subject}</Typography>
-          //   </Box>
-          //   <Box sx={{ mb: '8px' }}>
-          //     <Typography variant="h6" gutterBottom>
-          //       Email body
-          //     </Typography>
-          //     <Typography variant="body1">{formik.values.body}</Typography>
-          //   </Box>
-          //   <Box sx={{ mb: '8px' }}>
-          //     <Typography variant="h6" gutterBottom>
-          //       Recipients list
-          //     </Typography>
-          //     <Typography variant="body1">
-          //       {formik.values.recipients}
-          //     </Typography>
-          //   </Box>
-          // </Box>
           <Box>
             <Typography variant="h4" gutterBottom>
               Please confirm your entries

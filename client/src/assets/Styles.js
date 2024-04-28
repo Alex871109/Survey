@@ -87,11 +87,24 @@ const asideSubtitleTypography = {
   letterSpacing: '.3rem',
 };
 
-const heroBox = {
-  backgroundSize: 'cover',
+const heroImageBox = {
+  backgroundSize: '100% 100%',
   backgroundPosition: 'center',
-  minHeight: '110vh',
-  display: 'flex', //
+  backgroundRepeat: 'no-repeat',
+  position: 'relative',
+  textAlign: 'center',
+  minHeight: '100vh',
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'column',
+};
+const heroTextBox = {
+  position: 'absolute',
+  top: '5%',
+  left: 0,
+  right: 0,
+  display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
 };
@@ -109,7 +122,8 @@ const Styles = {
   NotFoundContainerTypography,
   asideTitleTypography,
   asideSubtitleTypography,
-  heroBox,
+  heroImageBox,
+  heroTextBox,
 };
 
 export default Styles;

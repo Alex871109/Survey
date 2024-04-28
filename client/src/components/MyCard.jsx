@@ -1,12 +1,19 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import { useDeleteSurveyMutation } from '../store';
 import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Container,
+  Typography,
+  ListItem,
+  ListItemText,
+  Divider,
+  List,
+} from '@mui/material';
 
 export default function MyCard({
   subject,
@@ -30,7 +37,7 @@ export default function MyCard({
   return (
     <Card sx={{ minWidth: 275, mb: 1.5 }}>
       <CardContent>
-        <Typography variant="body1" gutterBottom>
+        {/* <Typography variant="body1" gutterBottom>
           Title:
         </Typography>
         <Typography variant="h5" component="div">
@@ -51,7 +58,41 @@ export default function MyCard({
         </Typography>
         <Typography variant="body1" mt={1}>
           Last responded:{(lastResponded) ?lastResponded.split('T')[0]: 'Not yet responded.'}
-        </Typography>
+        </Typography> */}
+
+        <List>
+          <ListItem>
+            <ListItemText primary="Title:" secondary={title} />
+          </ListItem>
+          <Divider />
+
+          <ListItem>
+            <ListItemText primary="Subject:" secondary={subject} />
+          </ListItem>
+          <Divider />
+
+          <ListItem>
+            <ListItemText primary="Yes responses" secondary={yes} />
+          </ListItem>
+          <Divider />
+
+          <ListItem>
+            <ListItemText primary="No responses" secondary={no} />
+          </ListItem>
+          <Divider />
+
+          <ListItem>
+            <ListItemText
+              primary="Last responded"
+              secondary={
+                lastResponded
+                  ? lastResponded.split('T')[0]
+                  : 'Not yet responded.'
+              }
+            />
+          </ListItem>
+          <Divider />
+        </List>
       </CardContent>
       <CardActions>
         <Button size="small" onClick={handleDelete}>
