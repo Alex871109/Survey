@@ -39,6 +39,7 @@ const completionMessage = {
   ...basicLetter,
   fontWeight: 700,
   letterSpacing: '.3rem',
+  color: '#1e88e5'
 };
 
 const dashboardContainerBox = {

@@ -17,7 +17,7 @@ export const store = configureStore({
 
 setupListeners(store.dispatch);
 
-export { useFetchUsersQuery, useAddUserCreditsMutation } from './apis/usersApi';
+export { useFetchUsersQuery, useAddUserCreditsMutation, useLogoutUsersMutation } from './apis/usersApi';
 export {
   useFetchSurveysQuery,
   useAddSurveyMutation,

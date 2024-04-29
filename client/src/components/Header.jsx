@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Styles from '../assets/Styles';
-import axios from 'axios';
+import { useLogoutUsersMutation } from '../store';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -20,16 +20,8 @@ const loggedSettings = ['Account', 'Dashboard', 'Logout'];
 const notLoggedSettings = ['Sign with Google'];
 
 export const Header = ({ logged, error, data, isLoading, setLogged }) => {
-  const logout = async () => {
-    try {
-      await axios.get('/api/logout');
-      setLogged(false);
-      navigate('/', { replace: true });
-    } catch {
-      navigate('/servererror');
-    }
-  };
-
+  
+  const  [logout]  = useLogoutUsersMutation();
   const navigate = useNavigate();
 
   let settings = logged ? loggedSettings : notLoggedSettings;
@@ -37,21 +29,22 @@ export const Header = ({ logged, error, data, isLoading, setLogged }) => {
     ? { alt: 'User photo', src: data.photo }
     : { children: <AccountCircle /> };
 
-  // const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  // const handleUserOption = (page) => {
-  //   if (page === 'Add credits') navigate('/payments');
-  // };
-
-  const handleUserSelect = (setting) => {
+  const handleUserSelect = async (setting) => {
     if (setting === 'Sign with Google') window.location.href = '/auth/google';
     else if (setting === 'Logout') {
-      logout();
+      try {
+        await logout().unwrap();
+        setLogged(false);
+        navigate('/', { replace: true });
+      } catch {
+        navigate('/servererror');
+      }
     } else {
       navigate('/surveys');
     }

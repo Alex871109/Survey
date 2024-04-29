@@ -15,6 +15,16 @@ const usersApi = createApi({
         },
       }),
 
+      logoutUsers: builder.mutation({
+        providesTags: ['users'],
+        query: () => {
+          return {
+            url: '/api/logout',
+            method: 'POST',
+          };
+        },
+      }),
+
       addUserCredits: builder.mutation({
         invalidatesTags: [{ type: 'users' },{ type: 'surveys' }],
         query: (credits) => {
@@ -29,5 +39,5 @@ const usersApi = createApi({
   },
 });
 
-export const { useFetchUsersQuery, useAddUserCreditsMutation } = usersApi;
+export const { useFetchUsersQuery, useAddUserCreditsMutation, useLogoutUsersMutation } = usersApi;
 export { usersApi };

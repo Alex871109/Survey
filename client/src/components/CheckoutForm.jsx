@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
 export default function CheckoutForm() {
-  const [addCredits, results] = useAddUserCreditsMutation();
+  const [addCredits] = useAddUserCreditsMutation();
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ export default function CheckoutForm() {
     }
 
     try {
-      await addCredits(5);
+      await addCredits(5).unwrap();
       setIsProcessing(false);
       navigate('/completion');
     } catch (error) {

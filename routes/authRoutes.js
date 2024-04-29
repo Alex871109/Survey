@@ -16,9 +16,9 @@ module.exports = (app) => {
     }
   );
 
-  app.get('/api/logout', (req, res) => {
+  app.post('/api/logout', (req, res) => {
     req.logout();
-    res.send(req.user);
+     res.send(req.user);
   });
 
   app.get('/auth/facebook', passport.authenticate('facebook'));
