@@ -20,15 +20,17 @@ export const Dashboard = ({ userData }) => {
   if (data.length > 0) {
     const surveys = [...data].reverse().map((survey) => {
       return (
-        <MyCard
-          key={survey._id}
-          subject={survey.subject}
-          title={survey.title}
-          yes={survey.yes}
-          no={survey.no}
-          lastResponded={survey.lastResponded}
-          surveyId={survey._id}
-        />
+        <Container>
+          <MyCard
+            key={survey._id}
+            subject={survey.subject}
+            title={survey.title}
+            yes={survey.yes}
+            no={survey.no}
+            lastResponded={survey.lastResponded}
+            surveyId={survey._id}
+          />
+        </Container>
       );
     });
 
@@ -45,7 +47,7 @@ export const Dashboard = ({ userData }) => {
           <Typography
             variant="h4"
             align="center"
-            sx={{...Styles.dashboardContainerTypography,color:'#514CD1'}}
+            sx={{ ...Styles.dashboardContainerTypography, color: '#514CD1' }}
           >
             Still don't have any surveys.
             <br />

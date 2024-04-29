@@ -171,6 +171,7 @@ export const SurveyForm = ({ refetchUsers }) => {
         <Box display="flex" justifyContent="space-between" sx={{ mt: "8px" }}>
           {step === 1 && (
             <Button
+            sx={{ ml: '15px' }}
               variant="contained"
               color="error"
               onClick={() => setStep(0)}

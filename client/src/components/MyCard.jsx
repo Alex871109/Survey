@@ -37,29 +37,6 @@ export default function MyCard({
   return (
     <Card sx={{ minWidth: 275, mb: 1.5 }}>
       <CardContent>
-        {/* <Typography variant="body1" gutterBottom>
-          Title:
-        </Typography>
-        <Typography variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography variant="body1" mt={1} gutterBottom>
-          Subject:
-        </Typography>
-        <Typography variant="h5" component="div">
-          {subject}
-        </Typography>
-
-        <Typography variant="body1" mt={1}>
-          Yes :{yes}
-        </Typography>
-        <Typography variant="body1" mt={1}>
-          No :{no}
-        </Typography>
-        <Typography variant="body1" mt={1}>
-          Last responded:{(lastResponded) ?lastResponded.split('T')[0]: 'Not yet responded.'}
-        </Typography> */}
-
         <List>
           <ListItem>
             <ListItemText primary="Title:" secondary={title} />
@@ -95,7 +72,13 @@ export default function MyCard({
         </List>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={handleDelete}>
+        <Button
+          size="small"
+          color="error"
+          variant="contained"
+          sx={{ ml: '20px' }}
+          onClick={handleDelete}
+        >
           Delete
         </Button>
       </CardActions>
