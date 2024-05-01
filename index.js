@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+
+const { notFound, errorHandler } =require('./middlewares/errorHandler.js')
+
 require('./models/User');
 require('./models/Survey');
 require('./services/passport');
@@ -40,9 +43,11 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+app.use(notFound);
+app.use(errorHandler);
+
 const port = process.env.PORT;
 app.listen(port, () =>
   console.log('> Server is up and running on port : ' + port)
 );
 
-// mongodb user gptatwork  // pass 0miEqCVDQNm0m91r
