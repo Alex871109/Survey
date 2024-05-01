@@ -4,6 +4,8 @@ const { URL } = require('url');
 const mongoose = require('mongoose');
 const requireCredits = require('../middlewares/requireCredits');
 const requireLogin = require('../middlewares/requireLogin');
+const asyncHandler = require('../middlewares/asyncHandler');
+
 const Mailer = require('../services/Mailer');
 const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 
@@ -14,7 +16,7 @@ module.exports = (app) => {
     '/api/surveys/new',
     requireLogin,
     requireCredits,
-    async (req, res) => {
+    asyncHandler(async (req, res) => {
       const { title, subject, body, recipients } = req.body;
       const survey = new Survey({
         title,
@@ -29,75 +31,72 @@ module.exports = (app) => {
 
       const mailer = new Mailer(survey, surveyTemplate(survey));
 
-      try {
-        await mailer.send();
-        await survey.save();
-        req.user.credits -= 1;
-        const user = await req.user.save();
-        res.send(user);
-      } catch (err) {
-        res.status(422).send(err);
-      }
-    }
+      await mailer.send();
+      await survey.save();
+      req.user.credits -= 1;
+      const user = await req.user.save();
+      res.send(user);
+    })
   );
 
-  app.delete('/api/surveys/delete/:id', requireLogin, async (req, res) => {
-    try {
+  app.delete(
+    '/api/surveys/delete/:id',
+    requireLogin,
+    asyncHandler(async (req, res) => {
       const surveyEliminada = await Survey.findByIdAndDelete(req.params.id);
       if (!surveyEliminada) {
-        return res.status(404).json({ mensaje: 'Survey not found' });
+        res.status(404);
+        throw new Error('Survey not found');
       }
       res.json({ mensaje: 'Survey was deleted ', survey: surveyEliminada });
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
-  });
+    })
+  );
 
-  app.post('/api/surveys/webhooks', async (req, res) => {
-    const p = new Path('/api/surveys/:surveyid/:choice');
-    const updates = [];
-    const event = _.chain(req.body)
-      .map(({ email, url }) => {
-        const path = new URL(url).pathname;
-        const pathInfo = p.test(path);
-        if (pathInfo)
-          return {
-            email,
-            surveyId: pathInfo.surveyid,
-            choice: pathInfo.choice,
-          };
-      })
-      .compact()
-      .uniqBy('email', 'surveyId')
-      .each(({ surveyId, email, choice }) => {
-        // Construir las actualizaciones pero no ejecutarlas todavía
-        updates.push({
-          updateOne: {
-            filter: {
-              _id: surveyId,
-              recipients: { $elemMatch: { email: email, voted: false } },
+  app.post(
+    '/api/surveys/webhooks',
+    asyncHandler(async (req, res) => {
+      const p = new Path('/api/surveys/:surveyid/:choice');
+      const updates = [];
+      const event = _.chain(req.body)
+        .map(({ email, url }) => {
+          const path = new URL(url).pathname;
+          const pathInfo = p.test(path);
+          if (pathInfo)
+            return {
+              email,
+              surveyId: pathInfo.surveyid,
+              choice: pathInfo.choice,
+            };
+        })
+        .compact()
+        .uniqBy('email', 'surveyId')
+        .each(({ surveyId, email, choice }) => {
+          // Construir las actualizaciones pero no ejecutarlas todavía
+          updates.push({
+            updateOne: {
+              filter: {
+                _id: surveyId,
+                recipients: { $elemMatch: { email: email, voted: false } },
+              },
+              update: {
+                $inc: { [choice]: 1 },
+                $set: { 'recipients.$.voted': true },
+                lastResponded: new Date(),
+              },
             },
-            update: {
-              $inc: { [choice]: 1 },
-              $set: { 'recipients.$.voted': true },
-              lastResponded: new Date(),
-            },
-          },
-        });
-      })
-      .value();
+          });
+        })
+        .value();
 
-    try {
       // Ejecutar todas las actualizaciones en una sola operación
       const respond = await Survey.bulkWrite(updates);
-      console.log(respond);
+      if (!respond) {
+        res.status(404);
+        throw new Error('Error processing the replies');
+      }
       res.send({});
-    } catch (error) {
-      res
-        .status(500)
-        .send('Error al procesar las respuestas de las encuestas.');
-    }
-  });
+    })
+  );
 
   app.get('/api/surveys', requireLogin, async (req, res) => {
     try {
