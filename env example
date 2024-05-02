@@ -1,0 +1,11 @@
+
+
+GOOGLE_CLIENT_ID=Google client id for the account you are using to manage Oauth
+GOOGLE_CLIENT_SECRET=Google client secret SENDGRID_KEY for the account you are using to manage Oauth
+MONGO_URI=MongoDb URI 
+COOKIE_KEY=Some ramdom string
+STRIPE_PUBLISHABLE_KEY=The one of the account you are using for  development  purposes 
+STRIPE_SECRET_KEY=The one of the account you are using for development purposes
+SENDGRID_KEY=The one of the account you are using for development purposes
+SURVEY_REDIRECT_DOMAIN=http://localhost:3000
+PORT=5000
