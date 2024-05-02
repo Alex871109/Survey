@@ -45,7 +45,7 @@ export const Header = ({ logged, error, data, isLoading, setLogged }) => {
       } catch {
         navigate('/servererror');
       }
-    } else {
+    } else if (setting === 'Dashboard'){
       navigate('/surveys');
     }
 
