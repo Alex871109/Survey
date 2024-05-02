@@ -98,15 +98,15 @@ module.exports = (app) => {
     })
   );
 
-  app.get('/api/surveys', requireLogin, async (req, res) => {
-    try {
+  app.get(
+    '/api/surveys',
+    requireLogin,
+    asyncHandler(async (req, res) => {
       res.send(
         await Survey.find({ _user: req.user.id }).select({ recipients: false })
       );
-    } catch (error) {
-      res.status(500).send(`Error: ${error}`);
-    }
-  });
+    })
+  );
 
   app.get('/api/surveys/:surveiId/:choice', (req, res) => {
     res.send('Thanks for voting!!!');
