@@ -10,7 +10,6 @@ module.exports = (app) => {
     '/bill/create-payment-intent',
     requireLogin,
     asyncHandler(async (req, res) => {
-
       const paymentIntent = await stripe.paymentIntents.create({
         currency: 'EUR',
         amount: 500,
@@ -31,11 +30,11 @@ module.exports = (app) => {
 
   app.post(
     '/api/add_credits',
+    requireLogin,
     asyncHandler(async (req, res) => {
       req.user.credits += req.body.credits;
       const user = await req.user.save();
       res.send(user);
-    
     })
   );
 };
