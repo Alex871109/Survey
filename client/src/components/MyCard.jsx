@@ -77,7 +77,7 @@ export default function MyCard({
 
         <Button
           size="small"
-          color="success"
+          color="primary"
           variant="contained"
           sx={{ mr: '20px' }}
           onClick={updateSurvey}
