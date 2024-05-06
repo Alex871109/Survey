@@ -7,7 +7,7 @@ import { UserOption } from '../components/UserOption';
 import Styles from '../assets/Styles';
 
 export const Dashboard = ({ userData }) => {
-  const { data, error, isLoading } = useFetchSurveysQuery();
+  const { data, error, isLoading , refetch} = useFetchSurveysQuery();
   const [page, setPage] = useState(1);
 
   if (isLoading)
@@ -29,16 +29,17 @@ export const Dashboard = ({ userData }) => {
             no={survey.no}
             lastResponded={survey.lastResponded}
             surveyId={survey._id}
+            updateSurvey={refetch}
           />
         </Container>
       );
     });
 
     return (
-      <>
+      <Container>
         {surveys[page - 1]}
         <Paginator count={surveys.length} setPage={setPage} page={page} />
-      </>
+      </Container>
     );
   } else {
     return (

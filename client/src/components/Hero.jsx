@@ -18,7 +18,7 @@ export const Hero = ({ heroImage }) => {
             fontSize: { xs: '2rem', md: '3rem' },
           }}
         >
-          Simply Online Survey Software
+          Simple Online Survey Software
         </Typography>
         <Typography
           variant="h4"

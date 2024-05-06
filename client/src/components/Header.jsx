@@ -16,7 +16,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import { useNavigate, Link } from 'react-router-dom';
 import { UserOption } from './UserOption';
 
-const loggedSettings = ['Account', 'Dashboard', 'Logout'];
+const loggedSettings = [ 'Dashboard', 'Logout'];
 const notLoggedSettings = ['Sign with Google'];
 
 export const Header = ({ logged, error, data, isLoading, setLogged }) => {

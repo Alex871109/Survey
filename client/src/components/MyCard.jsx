@@ -5,15 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import { useDeleteSurveyMutation } from '../store';
 import { useNavigate } from 'react-router-dom';
-import {
-  Box,
-  Container,
-  Typography,
-  ListItem,
-  ListItemText,
-  Divider,
-  List,
-} from '@mui/material';
+import { ListItem, ListItemText, Divider, List } from '@mui/material';
 
 export default function MyCard({
   subject,
@@ -22,9 +14,10 @@ export default function MyCard({
   no,
   lastResponded,
   surveyId,
+  updateSurvey,
 }) {
   const navigate = useNavigate();
-  const [deleteSurvey, results] = useDeleteSurveyMutation();
+  const [deleteSurvey] = useDeleteSurveyMutation();
   const handleDelete = async () => {
     try {
       await deleteSurvey(surveyId);
@@ -71,7 +64,7 @@ export default function MyCard({
           <Divider />
         </List>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button
           size="small"
           color="error"
@@ -80,6 +73,16 @@ export default function MyCard({
           onClick={handleDelete}
         >
           Delete
+        </Button>
+
+        <Button
+          size="small"
+          color="success"
+          variant="contained"
+          sx={{ mr: '20px' }}
+          onClick={updateSurvey}
+        >
+          Update
         </Button>
       </CardActions>
     </Card>
