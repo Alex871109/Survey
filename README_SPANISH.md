@@ -1,5 +1,5 @@
 # Emaily Survey
-Este proyecto desarrolla una aplicación web utilizando el stack MERN (MongoDB, Express.js, React.js, Node.js), cuyo objetivo es enviar surveys a posibles clientes y obtener feedback sobre nuestros productos o  sevicios.
+Aplicación web para enviar encuestas y obtener feedback sobre nuestros productos o  sevicios, aplicando el patrón de diseño MVC y enfocándome en escribir un código limpio y mantenible. En el frontend, utilicé React junto con Material-UI (MUI), Redux Toolkit e integración con Stripe. En el backend, implementé Node.js con Express y MongoDB para la gestión de datos, integrando además SendGrid Webhooks y autenticación mediante Google OAuth para una mayor seguridad y funcionalidad.
 
 ## Instrucciones de Instalación
 
