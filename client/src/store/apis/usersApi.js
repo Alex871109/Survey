@@ -7,6 +7,7 @@ const usersApi = createApi({
     return {
       fetchUsers: builder.query({
         providesTags: ['users'],
+        keepUnusedDataFor: 5,
         query: () => {
           return {
             url: '/api/current_user',

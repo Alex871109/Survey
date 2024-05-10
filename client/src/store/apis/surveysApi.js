@@ -7,7 +7,7 @@ const surveysApi = createApi({
     return {
       fetchSurveys: builder.query({
         providesTags: ['surveys'],
-
+        keepUnusedDataFor: 5,
         query: () => {
           return {
             url: '/api/surveys',
